@@ -13,9 +13,7 @@ protected:
     bool isLocked;
 
 public:
-    Account(const std::string& id, std::shared_ptr<Client> client)
-        : accountId(id), balance(0.0), owner(client), isLocked(false) {}
-    
+    Account(const std::string& id, std::shared_ptr<Client> client);
     virtual ~Account() = default;
 
     // Core account operations
@@ -25,17 +23,17 @@ public:
     
     // Interest and commission calculations
     virtual void calculateInterest() = 0;
-    virtual void calculateCommission() = 0;
+    virtual void calculateCommission() { } // Пустая реализация по умолчанию
     
     // Getters
-    std::string getAccountId() const { return accountId; }
-    double getBalance() const { return balance; }
-    std::shared_ptr<Client> getOwner() const { return owner.lock(); }
-    bool getIsLocked() const { return isLocked; }
+    std::string getAccountId() const;
+    double getBalance() const;
+    std::shared_ptr<Client> getOwner() const;
+    bool getIsLocked() const;
     
     // State management
-    virtual void lock() { isLocked = true; }
-    virtual void unlock() { isLocked = false; }
+    virtual void lock();
+    virtual void unlock();
     
     // Transaction management
     virtual bool canWithdraw(double amount) const = 0;

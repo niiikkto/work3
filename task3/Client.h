@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "Account.h"
+
+class Account;
 
 class Client {
 private:
@@ -14,41 +15,23 @@ private:
 
 public:
     Client(const std::string& fName, const std::string& lName,
-           const std::string& passport = "", const std::string& addr = "")
-        : firstName(fName), lastName(lName), passportNumber(passport), address(addr) {}
+           const std::string& passport = "", const std::string& addr = "");
 
     // Getters
-    std::string getFirstName() const { return firstName; }
-    std::string getLastName() const { return lastName; }
-    std::string getPassportNumber() const { return passportNumber; }
-    std::string getAddress() const { return address; }
-    const std::vector<std::shared_ptr<Account>>& getAccounts() const { return accounts; }
+    std::string getFirstName() const;
+    std::string getLastName() const;
+    std::string getPassportNumber() const;
+    std::string getAddress() const;
+    const std::vector<std::shared_ptr<Account>>& getAccounts() const;
 
     // Account management
-    void addAccount(std::shared_ptr<Account> account) {
-        accounts.push_back(account);
-    }
-
-    std::shared_ptr<Account> findAccount(const std::string& accountId) const {
-        for (const auto& account : accounts) {
-            if (account->getAccountId() == accountId) {
-                return account;
-            }
-        }
-        return nullptr;
-    }
+    void addAccount(std::shared_ptr<Account> account);
+    std::shared_ptr<Account> findAccount(const std::string& accountId) const;
 
     // Client information management
-    void updatePassport(const std::string& newPassport) {
-        passportNumber = newPassport;
-    }
-
-    void updateAddress(const std::string& newAddress) {
-        address = newAddress;
-    }
+    void updatePassport(const std::string& newPassport);
+    void updateAddress(const std::string& newAddress);
 
     // Validation
-    bool isValid() const {
-        return !firstName.empty() && !lastName.empty();
-    }
+    bool isValid() const;
 };
